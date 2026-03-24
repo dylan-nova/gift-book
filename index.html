@@ -619,6 +619,11 @@
         body * {
           visibility: hidden;
         }
+        body.app-shell::before,
+        body.app-shell::after {
+          content: none !important;
+          display: none !important;
+        }
         #print-view,
         #print-view * {
           visibility: visible;
