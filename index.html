@@ -619,6 +619,11 @@
         body * {
           visibility: hidden;
         }
+        body.app-shell::before,
+        body.app-shell::after {
+          content: none !important;
+          display: none !important;
+        }
         #print-view,
         #print-view * {
           visibility: visible;
@@ -816,7 +821,6 @@
       }
     </style>
   </head>
-<!-- 测试触发codex review -->
   <body class="app-shell theme-festive">
     <div id="app-container" class="w-full max-w-7xl mx-auto p-4">
       <!-- 设置界面 -->
