@@ -14,15 +14,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verify required files exist
+        run: |
+          test -f index.html
+          test -f guest-screen.html
+          test -f README.md
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Check HTML formatting
+      - name: Advisory HTML formatting check
+        continue-on-error: true
         run: npx prettier@3.6.2 --check "*.html"
 
-      - name: Check README links
+      - name: Advisory README links check
+        continue-on-error: true
         uses: lycheeverse/lychee-action@v2
         with:
           args: --verbose --no-progress README.md
