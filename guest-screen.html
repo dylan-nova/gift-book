@@ -13,36 +13,84 @@
       /* ==================== 主题变量 ==================== */
       :root,
       .theme-festive {
-        --primary-color: #c00;
-        --primary-border-color: #ffaaaa;
-        --primary-bg-light: #fff2f2;
-        --button-bg-color: #dc2626;
-        --button-bg-hover: #b91c1c;
-        --button-border-color: #dc2626;
-        --button-text-color: #dc2626;
-        --link-hover-bg: #fee2e2;
-        --primary-ring-color: #ef4444;
+        --primary-color: #c77468;
+        --primary-border-color: rgba(199, 116, 104, 0.26);
+        --primary-bg-light: #fcf8f6;
+        --button-bg-color: #d07d70;
+        --button-bg-hover: #b96558;
+        --button-border-color: rgba(208, 125, 112, 0.34);
+        --button-text-color: #a8584e;
+        --link-hover-bg: rgba(208, 125, 112, 0.12);
+        --primary-ring-color: rgba(199, 116, 104, 0.28);
+        --page-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(241, 245, 252, 0.7)),
+          radial-gradient(circle at 12% 18%, rgba(255, 218, 214, 0.72), transparent 28%),
+          radial-gradient(circle at 88% 14%, rgba(224, 236, 255, 0.7), transparent 24%),
+          linear-gradient(135deg, #f6f8fc 0%, #eef2f8 48%, #e9eef6 100%);
+        --accent-glow: rgba(208, 125, 112, 0.18);
+        --surface-bg: rgba(255, 255, 255, 0.68);
+        --surface-bg-strong: rgba(255, 255, 255, 0.82);
+        --surface-border: rgba(255, 255, 255, 0.62);
+        --surface-outline: rgba(148, 163, 184, 0.24);
+        --input-bg: rgba(255, 255, 255, 0.82);
+        --shadow-sm: 0 12px 24px rgba(15, 23, 42, 0.08);
+        --shadow-lg: 0 30px 64px rgba(15, 23, 42, 0.16);
+        --radius-md: 16px;
+        --radius-lg: 22px;
+        --radius-xl: 30px;
       }
 
       .theme-solemn {
-        --primary-color: #374151;
-        --primary-border-color: #d1d5db;
-        --primary-bg-light: #f3f4f6;
-        --button-bg-color: #4b5563;
-        --button-bg-hover: #375151;
-        --button-border-color: #4b5563;
-        --button-text-color: #4b5563;
-        --link-hover-bg: #e5e7eb;
-        --primary-ring-color: #4b5563;
+        --primary-color: #60748e;
+        --primary-border-color: rgba(96, 116, 142, 0.24);
+        --primary-bg-light: #f6f8fb;
+        --button-bg-color: #647b98;
+        --button-bg-hover: #4d617b;
+        --button-border-color: rgba(100, 123, 152, 0.34);
+        --button-text-color: #50657f;
+        --link-hover-bg: rgba(96, 116, 142, 0.12);
+        --primary-ring-color: rgba(96, 116, 142, 0.28);
+        --page-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(241, 245, 252, 0.74)),
+          radial-gradient(circle at 14% 16%, rgba(214, 224, 241, 0.7), transparent 28%),
+          radial-gradient(circle at 84% 12%, rgba(255, 255, 255, 0.78), transparent 22%),
+          linear-gradient(135deg, #f5f7fb 0%, #eef3f8 48%, #e5ebf3 100%);
+        --accent-glow: rgba(96, 116, 142, 0.16);
       }
 
-      body {
-        font-family: "KaiTi", "楷体", serif;
+      body.display-screen {
+        font-family: "Segoe UI Variable", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
         margin: 0;
         padding: 0;
         overflow: hidden;
         width: 100vw;
         height: 100vh;
+        color: #1f2937;
+        background: var(--page-gradient);
+        position: relative;
+      }
+
+      body.display-screen::before,
+      body.display-screen::after {
+        content: "";
+        position: fixed;
+        width: 26rem;
+        height: 26rem;
+        border-radius: 999px;
+        pointer-events: none;
+        filter: blur(24px);
+        opacity: 0.9;
+        z-index: 0;
+      }
+
+      body.display-screen::before {
+        top: -8rem;
+        left: -6rem;
+        background: radial-gradient(circle, var(--accent-glow) 0%, transparent 68%);
+      }
+
+      body.display-screen::after {
+        right: -8rem;
+        bottom: -10rem;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.56) 0%, transparent 68%);
       }
 
       /* ==================== 动态布局 ==================== */
@@ -50,24 +98,32 @@
         display: flex;
         width: 100vw;
         height: 100vh;
+        gap: 1.25rem;
+        padding: 1.25rem;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 1;
       }
 
       #qr-code-area {
         width: 28%;
         flex-shrink: 0;
-        background-color: #ffffff;
-        border-right: 2px solid var(--primary-border-color);
+        background: var(--surface-bg);
+        border: 1px solid var(--surface-border);
         box-sizing: border-box;
         display: none; /* 默认隐藏，由 JS 控制显示 */
         flex-direction: column;
         align-items: center;
-        /* 修改: 移除 justify-content: center 以允许 flex-grow 生效 */
         padding: 2rem 1.5rem;
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
+        backdrop-filter: blur(24px) saturate(135%);
+        -webkit-backdrop-filter: blur(24px) saturate(135%);
       }
 
       #layout-root.layout-right #qr-code-area {
-        border-right: none;
-        border-left: 2px solid var(--primary-border-color);
+        border-right: 1px solid var(--surface-border);
+        border-left: 1px solid var(--surface-border);
       }
 
       #app-container {
@@ -75,6 +131,7 @@
         min-width: 0;
         height: 100%;
         position: relative;
+        z-index: 1;
       }
 
       /* ==================== 收款码区域样式 ==================== */
@@ -104,31 +161,37 @@
         max-height: 100%;
         height: auto;
         object-fit: contain;
-        border-radius: 8px;
-        border: 4px solid var(--primary-border-color);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: var(--shadow-sm);
       }
 
       .custom-text-area {
         width: 100%;
-        overflow: hidden; 
+        overflow: hidden;
         padding-top: 1.5rem;
         margin-top: 1.5rem;
-        border-top: 2px dashed var(--primary-border-color);
+        border-top: 1px solid var(--primary-border-color);
         font-family: "Microsoft YaHei", sans-serif;
         writing-mode: horizontal-tb;
         line-height: 1.6;
         font-size: 1rem;
+        color: #46566d;
       }
 
-      /* ==================== 礼簿框架 (无修改) ==================== */
+      /* ==================== 礼簿框架 ==================== */
       .gift-book-frame {
-        border: 6px solid var(--primary-color);
+        border: 1px solid rgba(255, 255, 255, 0.62);
         padding: clamp(15px, 2vw, 30px);
-        border-radius: 10px;
-        background-color: var(--primary-bg-light);
+        border-radius: var(--radius-xl);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(248, 250, 252, 0.76));
+        box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(22px) saturate(135%);
+        -webkit-backdrop-filter: blur(22px) saturate(135%);
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        height: 100%;
         width: 100%;
         box-sizing: border-box;
       }
@@ -139,10 +202,12 @@
       .gift-book-content {
         display: grid;
         grid-template-rows: 3fr 1fr 3fr;
-        border-top: 3px solid var(--primary-border-color);
+        border-top: 1px solid var(--primary-border-color);
         flex: 1;
         min-height: 0;
         overflow: hidden;
+        border-radius: 1.5rem;
+        background: rgba(255, 255, 255, 0.46);
       }
       .gift-book-row {
         display: grid;
@@ -150,8 +215,8 @@
         width: 100%;
       }
       .book-cell {
-        border-right: 3px solid var(--primary-border-color);
-        border-bottom: 3px solid var(--primary-border-color);
+        border-right: 1px solid var(--primary-border-color);
+        border-bottom: 1px solid var(--primary-border-color);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -166,9 +231,10 @@
         text-align: center;
         position: relative;
         min-height: 0;
+        transition: background-color 0.18s ease;
       }
       .book-cell:first-child {
-        border-left: 3px solid var(--primary-border-color);
+        border-left: 1px solid var(--primary-border-color);
       }
       .name-cell .name {
         color: #333;
@@ -235,9 +301,9 @@
         font-size: clamp(9px, 1.2vw, 14px);
       }
 
-      /* ==================== 顶部控件 (无修改) ==================== */
+      /* ==================== 顶部控件 ==================== */
       #top-right-controls {
-        position:absolute;
+        position: absolute;
         top: 20px;
         right: 20px;
         z-index: 1000;
@@ -247,15 +313,20 @@
       }
       #fullscreen-btn,
       #settings-btn {
-        background: none;
-        border: none;
+        background: var(--surface-bg-strong);
+        border: 1px solid rgba(255, 255, 255, 0.58);
         cursor: pointer;
-        padding: 8px;
+        padding: 0;
         border-radius: 50%;
-        transition: background-color 0.3s;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        box-shadow: var(--shadow-sm);
+        backdrop-filter: blur(20px) saturate(135%);
+        -webkit-backdrop-filter: blur(20px) saturate(135%);
       }
       #fullscreen-icon,
       #settings-icon {
@@ -263,22 +334,27 @@
       }
       #fullscreen-btn:hover,
       #settings-btn:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(255, 255, 255, 0.9);
+        transform: translateY(-1px);
       }
 
-      /* ==================== 全屏提示 (无修改) ==================== */
+      /* ==================== 全屏提示 ==================== */
       #fullscreen-hint {
         position: fixed;
         bottom: 30px;
         left: 50%;
         transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 15px 30px;
-        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.76);
+        color: #1f2937;
+        padding: 14px 26px;
+        border-radius: 999px;
         font-size: 16px;
         z-index: 1000;
         animation: fade-in-out 5s forwards;
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        box-shadow: var(--shadow-sm);
+        backdrop-filter: blur(18px) saturate(135%);
+        -webkit-backdrop-filter: blur(18px) saturate(135%);
       }
       @keyframes fade-in-out {
         0%,
@@ -291,9 +367,12 @@
         }
       }
 
-      /* ==================== 弹窗样式 (无修改) ==================== */
+      /* ==================== 弹窗样式 ==================== */
       #modal-container {
-        font-family: "Inter", "Microsoft YaHei", sans-serif;
+        font-family: "Segoe UI Variable", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: rgba(15, 23, 42, 0.18);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
       }
       #modal {
         display: flex;
@@ -301,6 +380,12 @@
         max-height: 90vh;
         max-width: 700px;
         width: 90vw;
+        border-radius: var(--radius-xl);
+        background: var(--surface-bg-strong);
+        border: 1px solid var(--surface-border);
+        box-shadow: var(--shadow-lg);
+        backdrop-filter: blur(26px) saturate(135%);
+        -webkit-backdrop-filter: blur(26px) saturate(135%);
       }
       #modal-content {
         flex: 1;
@@ -308,24 +393,31 @@
         padding-right: 0.5rem;
       }
       .themed-button-primary {
-        background-color: var(--button-bg-color);
+        background: linear-gradient(180deg, var(--button-bg-color), var(--button-bg-hover));
         color: white;
         padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
+        border-radius: 999px;
         font-weight: bold;
+        border: 1px solid var(--button-border-color);
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
       }
       .themed-button-primary:hover {
-        background-color: var(--button-bg-hover);
+        background: linear-gradient(180deg, var(--button-bg-color), var(--button-bg-hover));
+        filter: brightness(1.02);
+        transform: translateY(-1px);
       }
       .themed-button-secondary {
-        border: 1px solid var(--button-border-color);
+        border: 1px solid var(--surface-outline);
+        background: rgba(255, 255, 255, 0.64);
         color: var(--button-text-color);
         padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
+        border-radius: 999px;
         font-weight: bold;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
       }
       .themed-button-secondary:hover {
-        background-color: var(--link-hover-bg);
+        background-color: rgba(255, 255, 255, 0.82);
       }
       .themed-ring:focus {
         --tw-ring-color: var(--primary-ring-color) !important;
@@ -345,23 +437,25 @@
         font-family: "Microsoft YaHei", sans-serif;
         font-size: 14px;
         line-height: 1.5;
-        background: #fff;
+        background: var(--input-bg);
+        border-radius: var(--radius-md);
       }
       .pell-content:focus {
         outline: none;
         box-shadow: 0 0 0 2px var(--primary-ring-color);
       }
       .pell-actionbar {
-        background-color: #f9f9f9;
+        background-color: rgba(248, 250, 252, 0.8);
         padding: 6px;
         display: flex;
         flex-wrap: wrap;
         gap: 4px;
+        border-radius: var(--radius-md) var(--radius-md) 0 0;
       }
       .pell-button {
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 3px;
+        background-color: rgba(255, 255, 255, 0.78);
+        border: 1px solid var(--surface-outline);
+        border-radius: 10px;
         cursor: pointer;
         height: 30px;
         min-width: 30px;
@@ -373,11 +467,11 @@
         justify-content: center;
       }
       .pell-button-selected {
-        background-color: #ddd;
-        border-color: #bbb;
+        background-color: rgba(255, 255, 255, 0.96);
+        border-color: rgba(255, 255, 255, 0.88);
       }
       .pell-button:hover {
-        background-color: #eee;
+        background-color: rgba(255, 255, 255, 0.92);
       }
       .pell-button [class*="ri-"] {
         font-size: 18px;
@@ -386,9 +480,9 @@
       }
       .custom-pell-select {
         font-size: 14px;
-        border: 1px solid #ccc;
-        background: #fff;
-        border-radius: 3px;
+        border: 1px solid var(--surface-outline);
+        background: var(--input-bg);
+        border-radius: 10px;
         height: 30px;
         margin: 0 2px;
         padding: 4px 6px;
@@ -399,14 +493,25 @@
         width: 40px;
         height: 30px;
         margin: 0 2px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
+        border: 1px solid var(--surface-outline);
+        border-radius: 10px;
         cursor: pointer;
-        background: #fff;
+        background: var(--input-bg);
+      }
+
+      #event-title {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.5rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
       }
     </style>
   </head>
-  <body class="theme-festive">
+  <body class="display-screen theme-festive">
     <div id="layout-root" class="flex flex-row w-screen h-screen">
       <div id="qr-code-area">
         <div class="flex flex-1 flex-col min-h-0">
@@ -614,7 +719,7 @@
         updateDisplay(data) {
           if (!data) return;
           this.currentData = data;
-          document.body.className = data.theme || "theme-festive";
+          document.body.className = `display-screen ${data.theme || "theme-festive"}`;
           this.eventTitle.textContent = data.eventName || "礼簿";
           this.renderGiftBook(data);
           this.appContainer.classList.remove("hidden");
